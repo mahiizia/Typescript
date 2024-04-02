@@ -1,22 +1,66 @@
-"use strict";
-// Core Data Types
-// 1) string
-/* strings are values that are written inside "" or '', representating textual data.
-   Anything written inside "" or '' will be considered as string e.g:("abc", "123", "true")
-*/
-var stringTypeExample = "This is a string";
-console.log(stringTypeExample);
-// 2) number
-/* Number type is fundamental for representing numeric data and performing mathematical
-   operations within JavaScript programs. e.g:(1,10,100,100)
-*/
-var numberTypeExample = 100;
-console.log(numberTypeExample);
-// 3) boolean true and false
-/* the boolean type represents a logical value that can be either true or false. Booleans
-   are commonly used for conditions, comparisons, and logical operations.
-*/
-var booleanTypeExample1 = true;
-console.log(booleanTypeExample1);
-var booleanTypeExample2 = false;
-console.log(booleanTypeExample1);
+import inquirer from "inquirer";
+let myBalance = 10000;
+let myPin = 2023;
+// console.log("my current balance is ", myBalance);
+let myPinAns = await inquirer.prompt([
+    {
+        name: "pin",
+        message: "enter your pin",
+        type: "number"
+    }
+]);
+if (myPinAns.pin === myPin) {
+    console.log("correct pin code..!!!!");
+}
+let operationAns = await inquirer.prompt([
+    {
+        name: "operation",
+        message: "please select option",
+        type: "list",
+        choices: ["withdraw", "check balance", "fastcash"]
+    }
+]);
+if (operationAns.operation === "withdraw") {
+    let amountAns = await inquirer.prompt([
+        {
+            name: "amount",
+            message: "enter the amount amount",
+            type: "number"
+        }
+    ]);
+    if (amountAns.amount < myBalance) {
+        myBalance -= amountAns.amount;
+        console.log("now your amount is:" + myBalance);
+    }
+    else {
+        console.log("insufficent balance");
+    }
+}
+else if (operationAns.operation === "check balance") {
+    console.log("your current balance is:" + myBalance);
+}
+if (operationAns.operation === "fastcash") {
+    let fast = await inquirer.prompt([
+        {
+            name: "fastcash",
+            message: "how much money you want to with draw",
+            type: "list",
+            choices: ["1000", "3000", "5000",]
+        }
+    ]);
+    if (fast.fastcash === "1000") {
+        myBalance -= fast.fastcash;
+        console.log("your remaining balance is:" + myBalance);
+    }
+    if (fast.fastcash === "3000") {
+        myBalance -= fast.fastcash;
+        console.log("your remaining balance is:" + myBalance);
+    }
+    if (fast.fastcash === "5000") {
+        myBalance -= fast.fastcash;
+        console.log("your remaining balance is:" + myBalance);
+    }
+}
+else {
+    console.log("invalid pin code...!!");
+}
